@@ -38,9 +38,7 @@ def peak_local_max_3d(
         stride=1,
         padding=min_distance,
     ).squeeze(0).squeeze(0)
-    print("Max done")
     mask = (volume == mask) & (volume > threshold_abs)
-    print("Mask done")
     if exclude_border > 0:
         mask[:exclude_border, :, :] = False
         mask[-exclude_border:, :, :] = False
