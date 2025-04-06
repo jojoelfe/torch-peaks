@@ -19,7 +19,7 @@ name = "torch-peaks"
 dynamic = ["version"]
 description = "Peak finding and fitting using torch"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = { text = "BSD-3-Clause" }
 authors = [{ name = "Johannes Elferich", email = "jojotux123@hotmail.com" }]
 # https://pypi.org/classifiers/
@@ -27,7 +27,6 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: BSD License",
     "Programming Language :: Python :: 3",    
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -36,7 +35,11 @@ classifiers = [
 ]
 # add your package dependencies here
 dependencies = [
+    "mkdocs-jupyter>=0.25.1",
+    "mkdocs-material>=9.6.11",
     "torch>=2.6.0",
+    "torch-grid-utils>=0.0.1",
+    "torch-subpixel-crop>=0.0.3",
 ]
 
 # https://peps.python.org/pep-0621/#dependencies-optional-dependencies
@@ -63,6 +66,7 @@ dev = [
     "ipykernel>=6.29.5",
     "matplotlib>=3.9.4",
     "mkdocs>=1.6.1",
+    "pytest>=8.3.5",
 ]
 
 # Entry points
