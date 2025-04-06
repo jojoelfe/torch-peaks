@@ -31,15 +31,16 @@ def peak_local_max_3d(
         threshold_abs: float = 0.0,
         exclude_border: int = 0,
 ):
+
     mask = F.max_pool3d(
         volume.unsqueeze(0).unsqueeze(0),
         kernel_size=(min_distance * 2 + 1, min_distance * 2 + 1, min_distance * 2 + 1),
         stride=1,
         padding=min_distance,
     ).squeeze(0).squeeze(0)
-
+    print("Max done")
     mask = (volume == mask) & (volume > threshold_abs)
-
+    print("Mask done")
     if exclude_border > 0:
         mask[:exclude_border, :, :] = False
         mask[-exclude_border:, :, :] = False
