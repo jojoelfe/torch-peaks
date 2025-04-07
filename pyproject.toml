@@ -15,7 +15,7 @@ sources = ["src"]
 
 # https://peps.python.org/pep-0621/
 [project]
-name = "torch-peaks"
+name = "torch-find-peaks"
 dynamic = ["version"]
 description = "Peak finding and fitting using torch"
 readme = "README.md"
@@ -58,8 +58,8 @@ dev = [
 ]
 
 [project.urls]
-homepage = "https://github.com/jojoelfe/torch-peaks"
-repository = "https://github.com/jojoelfe/torch-peaks"
+homepage = "https://github.com/jojoelfe/torch-find-peaks"
+repository = "https://github.com/jojoelfe/torch-find-peaks"
 
 [dependency-groups]
 dev = [
@@ -75,7 +75,7 @@ dev = [
 # https://peps.python.org/pep-0621/#entry-points
 # same as console_scripts entry point
 # [project.scripts]
-# torch-peaks-cli = "torch_peaks:main_cli"
+# torch-find-peaks-cli = "torch_peaks:main_cli"
 
 # [project.entry-points."some.group"]
 # tomatoes = "torch_peaks:main_tomatoes"

@@ -1,4 +1,4 @@
-* torch-peaks version:
+* torch-find-peaks version:
 * Python version:
 * Operating System:
 

@@ -3,7 +3,7 @@
 from importlib.metadata import PackageNotFoundError, version
 
 try:
-    __version__ = version("torch-peaks")
+    __version__ = version("torch-find-peaks")
 except PackageNotFoundError:
     __version__ = "uninstalled"
 __author__ = "Johannes Elferich"

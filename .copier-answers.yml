@@ -6,6 +6,6 @@ author_name: Johannes Elferich
 github_username: jojoelfe
 mode: tooling
 module_name: torch_peaks
-project_name: torch-peaks
+project_name: torch-find-peaks
 project_short_description: Peak finding and fitting using torch
 

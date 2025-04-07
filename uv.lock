@@ -2291,7 +2291,7 @@ wheels = [
 ]
 
 [[package]]
-name = "torch-peaks"
+name = "torch-find-peaks"
 source = { editable = "." }
 dependencies = [
     { name = "mkdocs-jupyter" },
