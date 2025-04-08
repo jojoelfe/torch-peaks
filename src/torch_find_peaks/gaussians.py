@@ -185,9 +185,9 @@ class Gaussian3D(nn.Module):
         sigma_y = einops.rearrange(self.sigma_y, '... -> 1 1 1 ...')
         sigma_z = einops.rearrange(self.sigma_z, '... -> 1 1 1 ...')
 
-        grid_x = einops.rearrange(grid[..., 0], 'd h w -> d h w 1')
+        grid_x = einops.rearrange(grid[..., 2], 'd h w -> d h w 1')
         grid_y = einops.rearrange(grid[..., 1], 'd h w -> d h w 1')
-        grid_z = einops.rearrange(grid[..., 2], 'd h w -> d h w 1')
+        grid_z = einops.rearrange(grid[..., 0], 'd h w -> d h w 1')
 
         gaussian = amplitude * torch.exp(
             -((grid_x - center_x) ** 2 / (2 * sigma_x ** 2) +
