@@ -7,7 +7,7 @@ from torch_subpixel_crop import subpixel_crop_3d, subpixel_crop_2d
 from torch_grid_utils import coordinate_grid
 from torch_grid_utils.fftfreq_grid import dft_center
 
-from .gaussians import Gaussian2DList, Gaussian3DList
+from .gaussians import Gaussian2D
 
 
 

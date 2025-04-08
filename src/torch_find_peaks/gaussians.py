@@ -1,101 +1,74 @@
+import einops
 import torch
 import torch.nn as nn
 
+#class WarpedGaussian2D(nn.Module):
+#    def __init__(self,
+#                 amplitude=1.,
+#                 x0=0.,
+#                 y0=0.,
+#                 sigma_x=1.,
+#                 sigma_y=1.,
+#                 warp=1.,
+#                 warp_angle=0.):
+#        super(WarpedGaussian2D, self).__init__()
+#        self.amplitude = nn.Parameter(torch.tensor(amplitude))
+#        self.x0 = nn.Parameter(torch.tensor(x0))
+#        self.y0 = nn.Parameter(torch.tensor(y0))
+#        self.sigma_x = nn.Parameter(torch.tensor(sigma_x))
+#        self.sigma_y = nn.Parameter(torch.tensor(sigma_y))
+#        self.warp = nn.Parameter(torch.tensor(warp))
+#        self.warp_angle = nn.Parameter(torch.tensor(warp_angle))
+#
+#    def forward(self, x, y):
+#        u = (x - self.x0) * torch.cos(self.warp_angle) - (y - self.y0) * torch.sin(self.warp_angle)
+#        v = (x - self.x0) * torch.sin(self.warp_angle) + (y - self.y0) * torch.cos(self.warp_angle)
+#        return self.amplitude * torch.exp(
+#            -((u - self.warp * v **2) ** 2 / (2 * self.sigma_x ** 2) +
+#               v  ** 2 / (2 * self.sigma_y ** 2))
+#        )
+
 class Gaussian2D(nn.Module):
-    def __init__(self,
-                 amplitude=1.,
-                 x0=0.,
-                 y0=0.,
-                 sigma_x=1.,
-                 sigma_y=1.):
+    def __init__(self, 
+                 amplitude: torch.tensor = torch.tensor([1.0]), 
+                 center_x: torch.tensor = torch.tensor([0.0]),
+                 center_y: torch.tensor = torch.tensor([0.0]),
+                 sigma_x: torch.tensor = torch.tensor([1.0]),
+                 sigma_y: torch.tensor = torch.tensor([1.0])
+    ):
         super(Gaussian2D, self).__init__()
-        self.amplitude = nn.Parameter(torch.tensor(amplitude))
-        self.x0 = nn.Parameter(torch.tensor(x0))
-        self.y0 = nn.Parameter(torch.tensor(y0))
-        self.sigma_x = nn.Parameter(torch.tensor(sigma_x))
-        self.sigma_y = nn.Parameter(torch.tensor(sigma_y))
-    
-    def forward(self, x, y):
-        return self.amplitude * torch.exp(
-            -((x - self.x0) ** 2 / (2 * self.sigma_x ** 2) +
-              (y - self.y0) ** 2 / (2 * self.sigma_y ** 2))
-        )
+        # Ensure that the parameters are tensors of equal dimensions
+        assert amplitude.shape == center_x.shape == center_y.shape == sigma_x.shape == sigma_y.shape, \
+            "All parameters must have the same shape."
 
-class WarpedGaussian2D(nn.Module):
-    def __init__(self,
-                 amplitude=1.,
-                 x0=0.,
-                 y0=0.,
-                 sigma_x=1.,
-                 sigma_y=1.,
-                 warp=1.,
-                 warp_angle=0.):
-        super(WarpedGaussian2D, self).__init__()
-        self.amplitude = nn.Parameter(torch.tensor(amplitude))
-        self.x0 = nn.Parameter(torch.tensor(x0))
-        self.y0 = nn.Parameter(torch.tensor(y0))
-        self.sigma_x = nn.Parameter(torch.tensor(sigma_x))
-        self.sigma_y = nn.Parameter(torch.tensor(sigma_y))
-        self.warp = nn.Parameter(torch.tensor(warp))
-        self.warp_angle = nn.Parameter(torch.tensor(warp_angle))
+        self.amplitude = nn.Parameter(amplitude)
+        self.center_x = nn.Parameter(center_x)
+        self.center_y = nn.Parameter(center_y)
+        self.sigma_x = nn.Parameter(sigma_x)
+        self.sigma_y = nn.Parameter(sigma_y)
 
-    def forward(self, x, y):
-        u = (x - self.x0) * torch.cos(self.warp_angle) - (y - self.y0) * torch.sin(self.warp_angle)
-        v = (x - self.x0) * torch.sin(self.warp_angle) + (y - self.y0) * torch.cos(self.warp_angle)
-        return self.amplitude * torch.exp(
-            -((u - self.warp * v **2) ** 2 / (2 * self.sigma_x ** 2) +
-               v  ** 2 / (2 * self.sigma_y ** 2))
-        )
-
-class Gaussian2DList(nn.Module):
-    def __init__(self, num_gaussians, amplitude=1., x0=0., y0=0., sigma_x=1., sigma_y=1.):
-        super(Gaussian2DList, self).__init__()
-        self.amplitude = nn.Parameter(torch.ones(num_gaussians) * amplitude)
-        self.x0 = nn.Parameter(torch.zeros(num_gaussians) + x0)
-        self.y0 = nn.Parameter(torch.zeros(num_gaussians) + y0)
-        self.sigma_x = nn.Parameter(torch.ones(num_gaussians) * sigma_x)
-        self.sigma_y = nn.Parameter(torch.ones(num_gaussians) * sigma_y)
-
-    def forward(self, x, y):
+    def forward(self, grid):
         """
         Forward pass for 2D Gaussian list.
         
         Args:
-            x: x-coordinates
-            y: y-coordinates
+            grid: Tensor of shape (h,w, 2) containing 2D coordinates.
             
         Returns:
             Tensor of Gaussian values
         """
-        x = x.unsqueeze(0)  # Shape: (num_points, num_gaussians)
-        y = y.unsqueeze(0)
-        print(x.shape, y.shape)
-        print(self.amplitude.shape, self.x0.shape, self.y0.shape)
-        print(self.sigma_x.shape, self.sigma_y.shape)
-        
-        return self.amplitude.unsqueeze(1) * torch.exp(
-            -((x - self.x0.unsqueeze(1)) ** 2 / (2 * self.sigma_x.unsqueeze(1) ** 2) +
-              (y - self.y0.unsqueeze(1)) ** 2 / (2 * self.sigma_y.unsqueeze(1) ** 2))
+        amplitude = einops.rearrange(self.amplitude, '... -> 1 1 ...')
+        center_x = einops.rearrange(self.center_x, '... -> 1 1 ...')
+        center_y = einops.rearrange(self.center_y, '... -> 1 1 ...')
+        sigma_x = einops.rearrange(self.sigma_x, '... -> 1 1 ...')
+        sigma_y = einops.rearrange(self.sigma_y, '... -> 1 1 ...')
+
+        grid_x = einops.rearrange(grid[..., 1], 'h w -> h w 1')
+        grid_y = einops.rearrange(grid[..., 0], 'h w -> h w 1')
+
+        gaussian = amplitude * torch.exp(
+            -((grid_x - center_x) ** 2 / (2 * sigma_x ** 2) +
+              (grid_y - center_y) ** 2 / (2 * sigma_y ** 2))
         )
 
-class Gaussian3DList(nn.Module):
-    def __init__(self, num_gaussians,sign=1):
-        super(Gaussian3DList, self).__init__()
-        self.amplitude = nn.Parameter(torch.ones(num_gaussians)*sign)
-        self.x0 = nn.Parameter(torch.zeros(num_gaussians))
-        self.y0 = nn.Parameter(torch.zeros(num_gaussians))
-        self.z0 = nn.Parameter(torch.zeros(num_gaussians))
-        self.sigma_x = nn.Parameter(torch.ones(num_gaussians))
-        self.sigma_y = nn.Parameter(torch.ones(num_gaussians))
-        self.sigma_z = nn.Parameter(torch.ones(num_gaussians))
-
-    def forward(self, x, y, z):
-        
-        x = x.unsqueeze(0)  # Shape: (num_points, num_gaussians)
-        y = y.unsqueeze(0)
-        z = z.unsqueeze(0)
-        return self.amplitude.unsqueeze(1) * torch.exp(
-            -((x - self.x0.unsqueeze(1)) ** 2 / (2 * self.sigma_x.unsqueeze(1) ** 2) +
-              (y - self.y0.unsqueeze(1)) ** 2 / (2 * self.sigma_y.unsqueeze(1) ** 2) +
-              (z - self.z0.unsqueeze(1)) ** 2 / (2 * self.sigma_z.unsqueeze(1) ** 2))
-        )  
+        return einops.rearrange(gaussian, 'h w ... -> ... h w')

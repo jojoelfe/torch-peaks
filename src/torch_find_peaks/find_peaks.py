@@ -1,3 +1,4 @@
+import einops
 import torch
 import torch.nn.functional as F
 
@@ -7,15 +8,16 @@ def find_peaks_2d(
         threshold_abs: float = 0.0,
         exclude_border: int = 0,
 ):
+    image = einops.rearrange(image, "h w -> 1 1 h w")
     mask = F.max_pool2d(
-        image.unsqueeze(0).unsqueeze(0),
+        image,
         kernel_size=(min_distance * 2 + 1, min_distance * 2 + 1),
         stride=1,
         padding=min_distance,
-    ).squeeze(0).squeeze(0) 
-
+    )
+    mask = einops.rearrange(mask, "1 1 h w -> h w")
+    image = einops.rearrange(image, "1 1 h w -> h w")
     mask = (image == mask) & (image > threshold_abs)
-
     if exclude_border > 0:
         mask[:exclude_border, :] = False
         mask[-exclude_border:, :] = False

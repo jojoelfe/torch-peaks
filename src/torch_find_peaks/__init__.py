@@ -10,8 +10,8 @@ __author__ = "Johannes Elferich"
 __email__ = "jojotux123@hotmail.com"
 
 from .find_peaks import find_peaks_2d, find_peaks_3d
-from .gaussians import Gaussian2D, WarpedGaussian2D, Gaussian3DList, Gaussian2DList
-from .fit_gaussians import fit_gaussians_2d
+from .gaussians import Gaussian2D
+from .refine_peaks import fit_gaussians_2d
 __all__ = [
     
 ]
