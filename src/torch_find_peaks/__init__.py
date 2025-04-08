@@ -11,7 +11,7 @@ __email__ = "jojotux123@hotmail.com"
 
 from .find_peaks import find_peaks_2d, find_peaks_3d
 from .gaussians import Gaussian2D
-from .refine_peaks import fit_gaussians_2d
+from .refine_peaks import refine_peaks_2d
 __all__ = [
     
 ]

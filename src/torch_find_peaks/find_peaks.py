@@ -35,7 +35,7 @@ def find_peaks_3d(
 ):
     volume = einops.rearrange(volume, "d h w -> 1 1 d h w")
     mask = F.max_pool3d(
-        volume
+        volume,
         kernel_size=(min_distance * 2 + 1, min_distance * 2 + 1, min_distance * 2 + 1),
         stride=1,
         padding=min_distance,

@@ -18,10 +18,10 @@ def refine_peaks_2d(
     max_iterations: int = 1000,
     learning_rate: float = 0.01,
     tolerance: float = 1e-6,
-    amplitude: Union[torch.tensor|float] = 1.,
-    sigma_x: Union[torch.tensor|float] = 1.,
-    sigma_y: Union[torch.tensor|float] = 1.,
-) -> Tuple[List[Dict[str, float]], torch.Tensor]:
+    amplitude: Union[torch.Tensor|float] = 1.,
+    sigma_x: Union[torch.Tensor|float] = 1.,
+    sigma_y: Union[torch.Tensor|float] = 1.,
+) -> torch.Tensor:
     """
     Fit 2D Gaussians to peaks in an image.
     
@@ -61,15 +61,15 @@ def refine_peaks_2d(
         sigma_y = torch.tensor([sigma_y] * num_peaks, device=image.device)
 
     # Crop regions around peaks
-    boxes = subpixel_crop_2d(image, peak_coords., boxsize)
+    boxes = subpixel_crop_2d(image, peak_coords, boxsize).detach()
     # Prepare coordinates
     center = dft_center((boxsize,boxsize),rfft=False,fftshifted=True)
     grid = coordinate_grid((boxsize,boxsize),center=center) 
     
     # Initialize model, sta
     model = Gaussian2D(amplitude=amplitude, 
-                       center_x=0., 
-                       center_y=0., 
+                       center_x=torch.zeros_like(amplitude), 
+                       center_y=torch.zeros_like(amplitude), 
                        sigma_x=sigma_x, 
                        sigma_y=sigma_y).to(image.device)
     
@@ -84,11 +84,9 @@ def refine_peaks_2d(
         optimizer.zero_grad()
         
         # Calculate predicted values
-        output = model(x_coords, y_coords, torch.zeros_like(x_coords)).reshape(num_gaussians, boxsize, boxsize)
-        
+        output = model(grid)
         # Calculate loss
         loss = criterion(output, boxes)
-        
         # Check convergence
         if loss.item() < tolerance:
             break
@@ -102,15 +100,14 @@ def refine_peaks_2d(
             model.amplitude.data.clamp_(min=0)
             model.sigma_x.data.clamp_(min=0.001)
             model.sigma_y.data.clamp_(min=0.001)
-            model.sigma_z.data.clamp_(min=0.001)
     
     # Extract fitted parameters
     fitted_params = []
-    for i in range(num_gaussians):
+    for i in range(num_peaks):
         fitted_params.append({
             'amplitude': model.amplitude[i].item(),
-            'x0': model.x0[i].item(),
-            'y0': model.y0[i].item(),
+            'center_x': model.center_x[i].item(),
+            'center_y': model.center_y[i].item(),
             'sigma_x': model.sigma_x[i].item(),
             'sigma_y': model.sigma_y[i].item(),
             'loss': loss.item()
