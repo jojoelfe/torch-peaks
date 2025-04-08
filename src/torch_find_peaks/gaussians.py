@@ -69,6 +69,9 @@ class Gaussian2DList(nn.Module):
         """
         x = x.unsqueeze(0)  # Shape: (num_points, num_gaussians)
         y = y.unsqueeze(0)
+        print(x.shape, y.shape)
+        print(self.amplitude.shape, self.x0.shape, self.y0.shape)
+        print(self.sigma_x.shape, self.sigma_y.shape)
         
         return self.amplitude.unsqueeze(1) * torch.exp(
             -((x - self.x0.unsqueeze(1)) ** 2 / (2 * self.sigma_x.unsqueeze(1) ** 2) +

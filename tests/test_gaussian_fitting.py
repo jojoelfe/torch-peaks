@@ -5,66 +5,7 @@ from torch_peaks.fit_gaussians import fit_gaussians_2d
 from torch_peaks.find_peaks import peak_local_max_2d
 from torch_peaks.gaussians import Gaussian2D
 
-def create_test_image(size=100, num_peaks=3, noise_level=0.1):
-    """
-    Create a test image with known Gaussian peaks.
-    
-    Args:
-        size: Size of the square image
-        num_peaks: Number of peaks to add
-        noise_level: Level of noise to add
-        
-    Returns:
-        Tuple containing:
-        - Image tensor with Gaussian peaks
-        - List of true peak parameters (amplitude, x0, y0, sigma_x, sigma_y)
-    """
-    # Create a blank image
-    image = torch.zeros((size, size))
-    
-    # Generate random peak parameters
-    true_params = []
-    
-    for _ in range(num_peaks):
-        # Random peak parameters
-        amplitude = np.random.uniform(0.5, 2.0)
-        x0 = np.random.uniform(size/4, 3*size/4)
-        y0 = np.random.uniform(size/4, 3*size/4)
-        sigma_x = np.random.uniform(1.0, 3.0)
-        sigma_y = np.random.uniform(1.0, 3.0)
-        
-        # Create a single Gaussian
-        gaussian = Gaussian2D(
-            amplitude=amplitude,
-            x0=x0,
-            y0=y0,
-            sigma_x=sigma_x,
-            sigma_y=sigma_y
-        )
-        
-        # Create coordinate grids
-        y, x = torch.meshgrid(
-            torch.arange(size),
-            torch.arange(size),
-            indexing='ij'
-        )
-        
-        # Add the Gaussian to the image
-        image += gaussian(x, y).detach()
-        
-        # Store true parameters
-        true_params.append({
-            'amplitude': amplitude,
-            'x0': x0,
-            'y0': y0,
-            'sigma_x': sigma_x,
-            'sigma_y': sigma_y
-        })
-    
-    # Add noise
-    image += noise_level * torch.randn_like(image)
-    
-    return image, true_params
+
 
 def test_fit_gaussians_2d_basic():
     """Test basic functionality of 2D Gaussian fitting."""

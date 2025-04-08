@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 
-def peak_local_max_2d(
+def find_peaks_2d(
         image: torch.Tensor,
         min_distance: int = 1,
         threshold_abs: float = 0.0,
@@ -25,7 +25,7 @@ def peak_local_max_2d(
     coords = torch.nonzero(mask, as_tuple=False)
     return coords
 
-def peak_local_max_3d(
+def find_peaks_3d(
         volume: torch.Tensor,
         min_distance: int = 1,
         threshold_abs: float = 0.0,
