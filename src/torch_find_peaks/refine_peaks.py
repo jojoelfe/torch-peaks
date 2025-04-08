@@ -11,18 +11,16 @@ from .gaussians import Gaussian2D
 
 
 
-def fit_gaussians_2d(
+def refine_peaks_2d(
     image: torch.Tensor,
     peak_coords: torch.Tensor,
     boxsize: int,
     max_iterations: int = 1000,
     learning_rate: float = 0.01,
     tolerance: float = 1e-6,
-    amplitude: float = 1.,
-    x0: float = 0.,
-    y0: float = 0.,
-    sigma_x: float = 1.,
-    sigma_y: float = 1.,
+    amplitude: Union[torch.tensor|float] = 1.,
+    sigma_x: Union[torch.tensor|float] = 1.,
+    sigma_y: Union[torch.tensor|float] = 1.,
 ) -> Tuple[List[Dict[str, float]], torch.Tensor]:
     """
     Fit 2D Gaussians to peaks in an image.
@@ -48,17 +46,32 @@ def fit_gaussians_2d(
     # Ensure boxsize is even
     if boxsize % 2 != 0:
         raise ValueError("boxsize must be even")
-    
+    #Ensure shape of peak_coords
+    if peak_coords.shape[1] != 2:
+        raise ValueError("peak_coords must have shape (n, 2)")
+    # Ensure peak_coords is on the same device as image
+    if peak_coords.device != image.device:
+        raise ValueError("peak_coords must be on the same device as image")
+    num_peaks = peak_coords.shape[0]
+    if not isinstance(amplitude, torch.Tensor):
+        amplitude = torch.tensor([amplitude] * num_peaks, device=image.device)
+    if not isinstance(sigma_x, torch.Tensor):
+        sigma_x = torch.tensor([sigma_x] * num_peaks, device=image.device)
+    if not isinstance(sigma_y, torch.Tensor):
+        sigma_y = torch.tensor([sigma_y] * num_peaks, device=image.device)
+
     # Crop regions around peaks
-    boxes = subpixel_crop_2d(image, peak_coords, boxsize)
+    boxes = subpixel_crop_2d(image, peak_coords., boxsize)
     # Prepare coordinates
     center = dft_center((boxsize,boxsize),rfft=False,fftshifted=True)
     grid = coordinate_grid((boxsize,boxsize),center=center) 
-    y_coords, x_coords = grid[::,0], grid[::,1]
     
-    # Initialize model
-    num_gaussians = len(peak_coords)
-    model = Gaussian2DList(num_gaussians, amplitude=amplitude, x0=x0, y0=y0, sigma_x=sigma_x, sigma_y=sigma_y).to(image.device)
+    # Initialize model, sta
+    model = Gaussian2D(amplitude=amplitude, 
+                       center_x=0., 
+                       center_y=0., 
+                       sigma_x=sigma_x, 
+                       sigma_y=sigma_y).to(image.device)
     
     
     

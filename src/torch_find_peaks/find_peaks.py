@@ -33,13 +33,15 @@ def find_peaks_3d(
         threshold_abs: float = 0.0,
         exclude_border: int = 0,
 ):
-
+    volume = einops.rearrange(volume, "d h w -> 1 1 d h w")
     mask = F.max_pool3d(
-        volume.unsqueeze(0).unsqueeze(0),
+        volume
         kernel_size=(min_distance * 2 + 1, min_distance * 2 + 1, min_distance * 2 + 1),
         stride=1,
         padding=min_distance,
-    ).squeeze(0).squeeze(0)
+    )
+    mask = einops.rearrange(mask, "1 1 d h w -> d h w")
+    volume = einops.rearrange(volume, "1 1 d h w -> d h w")
     mask = (volume == mask) & (volume > threshold_abs)
     if exclude_border > 0:
         mask[:exclude_border, :, :] = False
