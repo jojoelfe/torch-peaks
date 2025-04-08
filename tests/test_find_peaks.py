@@ -6,7 +6,7 @@ from torch_grid_utils.fftfreq_grid import dft_center
 from _utils import create_test_image, create_test_volume
 
 def test_peak_picking_2d():
-    peaks = torch.tensor([[1, 0, 0, 5, 5], [1, -20, -20, 2, 2]], dtype=torch.float32)
+    peaks = torch.tensor([[1, 50, 50, 5, 5], [1, 30, 30, 2, 2]], dtype=torch.float32)
     data = create_test_image(size=100, peaks=peaks, noise_level=0.05)
     
     # Small distance and low threshold should pick extra peaks
@@ -19,7 +19,7 @@ def test_peak_picking_2d():
     assert torch.allclose(peak_detections[1], torch.tensor([50, 50]), atol=1.5)
 
 def test_peak_picking_3d():
-    peaks = torch.tensor([[1, 0, 0, 0, 2, 2, 2], [1, -20, -20, -20, 2, 2, 2]], dtype=torch.float32)
+    peaks = torch.tensor([[1, 50, 50, 50, 2, 2, 2], [1, 30, 30, 30, 2, 2, 2]], dtype=torch.float32)
     data = create_test_volume(size=100, peaks=peaks, noise_level=0.05)
     
     # Small distance and low threshold should pick extra peaks

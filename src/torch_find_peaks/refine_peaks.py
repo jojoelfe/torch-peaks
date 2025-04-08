@@ -101,16 +101,14 @@ def refine_peaks_2d(
             model.sigma_x.data.clamp_(min=0.001)
             model.sigma_y.data.clamp_(min=0.001)
     
-    # Extract fitted parameters
-    fitted_params = []
-    for i in range(num_peaks):
-        fitted_params.append({
-            'amplitude': model.amplitude[i].item(),
-            'center_x': model.center_x[i].item(),
-            'center_y': model.center_y[i].item(),
-            'sigma_x': model.sigma_x[i].item(),
-            'sigma_y': model.sigma_y[i].item(),
-            'loss': loss.item()
-        })
-    
-    return fitted_params
+    # Combine the (...,1) model parameters to a (...,5) tensor
+    # and add the peak coordinates
+    fitted_params = torch.stack([
+        model.amplitude,
+        model.center_x + peak_coords[:, 1],
+        model.center_y + peak_coords[:, 0],
+        model.sigma_x,
+        model.sigma_y
+    ], dim=-1).reshape(num_peaks, 5)
+
+    return fitted_params, loss.item()

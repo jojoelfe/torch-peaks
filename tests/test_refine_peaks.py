@@ -8,11 +8,11 @@ from _utils import create_test_image
 
 def test_refine_peaks_2d_basic():
     """Test basic functionality of 2D Gaussian fitting."""
-    peaks = torch.tensor([[4, 0, 0, 5, 5], [1, -20, -20, 2, 2]], dtype=torch.float32)
+    peaks = torch.tensor([[4, 50, 50, 5, 5], [1, 30, 30, 2, 2]], dtype=torch.float32)
     data = create_test_image(size=100, peaks=peaks, noise_level=0.05)
    
     # Fit Gaussians to the peaks
-    fitted_params = refine_peaks_2d(
+    fitted_params,_ = refine_peaks_2d(
         data,
         peak_coords=torch.tensor([[45, 49],[28, 32]], dtype=torch.float32),
         boxsize=20,
@@ -24,4 +24,5 @@ def test_refine_peaks_2d_basic():
     # Check that we found the correct number of peaks
     assert len(fitted_params) == len(peaks)
     
-    assert(False)
+    assert torch.allclose(fitted_params[0], peaks[0], atol=1e-1)
+    assert torch.allclose(fitted_params[1], peaks[1], atol=1e-1)

@@ -1,6 +1,5 @@
 import torch
 from torch_grid_utils import coordinate_grid
-from torch_grid_utils.fftfreq_grid import dft_center
 
 from torch_find_peaks.gaussians import Gaussian2D, Gaussian3D
 
@@ -27,8 +26,7 @@ def create_test_image(size:int=100, peaks: torch.tensor = torch.tensor([]), nois
         sigma_y=peaks[:, 4],
     )
     
-    center = dft_center((size,size),rfft=False,fftshifted=True)
-    grid = coordinate_grid((size,size),center=center)
+    grid = coordinate_grid((size,size))
 
     # Add Gaussian peaks to the image
     image += gaussian_model(grid).sum(dim=0)
@@ -60,8 +58,7 @@ def create_test_volume(size:int=100, peaks: torch.tensor = torch.tensor([]), noi
         sigma_z=peaks[:, 6],
     )
     
-    center = dft_center((size,size,size),rfft=False,fftshifted=True)
-    grid = coordinate_grid((size,size,size),center=center)
+    grid = coordinate_grid((size,size,size))
 
     # Add Gaussian peaks to the image
     image += gaussian_model(grid).sum(dim=0)
