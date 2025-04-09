@@ -2560,7 +2560,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([1.0])</code>
+                  <code>1.0</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -2576,7 +2576,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([0.0])</code>
+                  <code>0.0</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -2592,7 +2592,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([0.0])</code>
+                  <code>0.0</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -2608,7 +2608,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([1.0])</code>
+                  <code>1.0</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -2624,7 +2624,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([1.0])</code>
+                  <code>1.0</code>
             </td>
           </tr>
       </tbody>
@@ -2659,9 +2659,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 
               <details class="quote">
                 <summary>Source code in <code>src/torch_find_peaks/gaussians.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">105</span>
 <span class="normal">106</span>
 <span class="normal">107</span>
 <span class="normal">108</span>
@@ -2736,7 +2734,10 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="normal">177</span>
 <span class="normal">178</span>
 <span class="normal">179</span>
-<span class="normal">180</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Gaussian2D</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Gaussian2D</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A 2D Gaussian function.</span>
 
@@ -2760,11 +2761,11 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">amplitude</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]),</span>
-                 <span class="n">center_x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]),</span>
-                 <span class="n">center_y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]),</span>
-                 <span class="n">sigma_x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]),</span>
-                 <span class="n">sigma_y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">])</span>
+                 <span class="n">amplitude</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">center_x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">center_y</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">sigma_x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">sigma_y</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Gaussian2D</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="c1"># Ensure that the parameters are tensors</span>
@@ -2799,14 +2800,15 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="sd">        -------</span>
 <span class="sd">            Tensor of Gaussian values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Add batch dimension</span>
+        <span class="n">grid_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;h w -&gt; h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+        <span class="n">grid_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;h w -&gt; h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+
         <span class="n">amplitude</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
         <span class="n">center_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">center_x</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
         <span class="n">center_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">center_y</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
         <span class="n">sigma_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
         <span class="n">sigma_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
-
-        <span class="n">grid_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;h w -&gt; h w 1&#39;</span><span class="p">)</span>
-        <span class="n">grid_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;h w -&gt; h w 1&#39;</span><span class="p">)</span>
 
         <span class="n">gaussian</span> <span class="o">=</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
             <span class="o">-</span><span class="p">((</span><span class="n">grid_x</span> <span class="o">-</span> <span class="n">center_x</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
@@ -2870,9 +2872,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 
             <details class="quote">
               <summary>Source code in <code>src/torch_find_peaks/gaussians.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">157</span>
 <span class="normal">158</span>
 <span class="normal">159</span>
 <span class="normal">160</span>
@@ -2895,7 +2895,10 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="normal">177</span>
 <span class="normal">178</span>
 <span class="normal">179</span>
-<span class="normal">180</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Forward pass for 2D Gaussian list.</span>
 
@@ -2906,14 +2909,15 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="sd">    -------</span>
 <span class="sd">        Tensor of Gaussian values</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Add batch dimension</span>
+    <span class="n">grid_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;h w -&gt; h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+    <span class="n">grid_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;h w -&gt; h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+
     <span class="n">amplitude</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
     <span class="n">center_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">center_x</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
     <span class="n">center_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">center_y</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
     <span class="n">sigma_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_x</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
     <span class="n">sigma_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 ...&#39;</span><span class="p">)</span>
-
-    <span class="n">grid_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;h w -&gt; h w 1&#39;</span><span class="p">)</span>
-    <span class="n">grid_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;h w -&gt; h w 1&#39;</span><span class="p">)</span>
 
     <span class="n">gaussian</span> <span class="o">=</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
         <span class="o">-</span><span class="p">((</span><span class="n">grid_x</span> <span class="o">-</span> <span class="n">center_x</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
@@ -2978,7 +2982,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([1.0])</code>
+                  <code><span title="torch.tensor">tensor</span>(1.0)</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -2994,7 +2998,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([0.0])</code>
+                  <code><span title="torch.tensor">tensor</span>(0.0)</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -3010,7 +3014,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([0.0])</code>
+                  <code><span title="torch.tensor">tensor</span>(0.0)</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -3026,7 +3030,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([0.0])</code>
+                  <code><span title="torch.tensor">tensor</span>(0.0)</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -3042,7 +3046,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([1.0])</code>
+                  <code><span title="torch.tensor">tensor</span>(1.0)</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -3058,7 +3062,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([1.0])</code>
+                  <code><span title="torch.tensor">tensor</span>(1.0)</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -3074,7 +3078,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
               </div>
             </td>
             <td>
-                  <code><span title="torch.tensor">tensor</span>([1.0])</code>
+                  <code><span title="torch.tensor">tensor</span>(1.0)</code>
             </td>
           </tr>
       </tbody>
@@ -3109,10 +3113,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 
               <details class="quote">
                 <summary>Source code in <code>src/torch_find_peaks/gaussians.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">186</span>
 <span class="normal">187</span>
 <span class="normal">188</span>
 <span class="normal">189</span>
@@ -3202,7 +3203,12 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="normal">273</span>
 <span class="normal">274</span>
 <span class="normal">275</span>
-<span class="normal">276</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Gaussian3D</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Gaussian3D</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A 3D Gaussian function.</span>
 
@@ -3230,13 +3236,13 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">amplitude</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]),</span>
-                 <span class="n">center_x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]),</span>
-                 <span class="n">center_y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]),</span>
-                 <span class="n">center_z</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]),</span>
-                 <span class="n">sigma_x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]),</span>
-                 <span class="n">sigma_y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">]),</span>
-                 <span class="n">sigma_z</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">])</span>
+                 <span class="n">amplitude</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span>
+                 <span class="n">center_x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span>
+                 <span class="n">center_y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span>
+                 <span class="n">center_z</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span>
+                 <span class="n">sigma_x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span>
+                 <span class="n">sigma_y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span>
+                 <span class="n">sigma_z</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Gaussian3D</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="c1"># Ensure that the parameters are tensors</span>
@@ -3277,6 +3283,11 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="sd">        -------</span>
 <span class="sd">            Tensor of Gaussian values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+         <span class="c1"># Add batch dimension</span>
+        <span class="n">grid_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+        <span class="n">grid_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+        <span class="n">grid_z</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+
         <span class="n">amplitude</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
         <span class="n">center_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">center_x</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
         <span class="n">center_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">center_y</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
@@ -3285,9 +3296,6 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
         <span class="n">sigma_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
         <span class="n">sigma_z</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
 
-        <span class="n">grid_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w 1&#39;</span><span class="p">)</span>
-        <span class="n">grid_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w 1&#39;</span><span class="p">)</span>
-        <span class="n">grid_z</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w 1&#39;</span><span class="p">)</span>
 
         <span class="n">gaussian</span> <span class="o">=</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
             <span class="o">-</span><span class="p">((</span><span class="n">grid_x</span> <span class="o">-</span> <span class="n">center_x</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
@@ -3352,10 +3360,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 
             <details class="quote">
               <summary>Source code in <code>src/torch_find_peaks/gaussians.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">250</span>
 <span class="normal">251</span>
 <span class="normal">252</span>
 <span class="normal">253</span>
@@ -3381,7 +3386,12 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="normal">273</span>
 <span class="normal">274</span>
 <span class="normal">275</span>
-<span class="normal">276</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Forward pass for 3D Gaussian list.</span>
 
@@ -3392,6 +3402,11 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="sd">    -------</span>
 <span class="sd">        Tensor of Gaussian values</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+     <span class="c1"># Add batch dimension</span>
+    <span class="n">grid_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+    <span class="n">grid_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+    <span class="n">grid_z</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w&#39;</span> <span class="o">+</span> <span class="s1">&#39; 1&#39;</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span>
+
     <span class="n">amplitude</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amplitude</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
     <span class="n">center_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">center_x</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
     <span class="n">center_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">center_y</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
@@ -3400,9 +3415,6 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
     <span class="n">sigma_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_y</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
     <span class="n">sigma_z</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_z</span><span class="p">,</span> <span class="s1">&#39;... -&gt; 1 1 1 ...&#39;</span><span class="p">)</span>
 
-    <span class="n">grid_x</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w 1&#39;</span><span class="p">)</span>
-    <span class="n">grid_y</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w 1&#39;</span><span class="p">)</span>
-    <span class="n">grid_z</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;d h w -&gt; d h w 1&#39;</span><span class="p">)</span>
 
     <span class="n">gaussian</span> <span class="o">=</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
         <span class="o">-</span><span class="p">((</span><span class="n">grid_x</span> <span class="o">-</span> <span class="n">center_x</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
@@ -3599,9 +3611,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 
               <details class="quote">
                 <summary>Source code in <code>src/torch_find_peaks/gaussians.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  6</span>
-<span class="normal">  7</span>
-<span class="normal">  8</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  8</span>
 <span class="normal">  9</span>
 <span class="normal"> 10</span>
 <span class="normal"> 11</span>
@@ -3693,7 +3703,9 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
-<span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">WarpedGaussian2D</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">WarpedGaussian2D</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A 2D warped Gaussian function.</span>
 
@@ -3844,9 +3856,7 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 
             <details class="quote">
               <summary>Source code in <code>src/torch_find_peaks/gaussians.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 70</span>
-<span class="normal"> 71</span>
-<span class="normal"> 72</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 72</span>
 <span class="normal"> 73</span>
 <span class="normal"> 74</span>
 <span class="normal"> 75</span>
@@ -3874,7 +3884,9 @@ Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, si
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
-<span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Forward pass for 2D warped Gaussian list.</span>
 
