@@ -48,6 +48,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -244,7 +246,7 @@
   
   
   <span class="md-ellipsis">
-    Welcome to MkDocs
+    Torch Find Peaks Documentation
     
   </span>
   
@@ -847,10 +849,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </clipboard-copy>
 </div>
-<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">torch_find_peaks.gaussians</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gaussian2D</span><span class="p">,</span> <span class="n">WarpedGaussian2D</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">torch_grid_utils.coordinate_grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">coordinate_grid</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_grid_utils.coordinate_grid</span><span class="w"> </span><span class="kn">import</span> <span class="n">coordinate_grid</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch_find_peaks.gaussians</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gaussian2D</span><span class="p">,</span> <span class="n">WarpedGaussian2D</span>
 
 <span class="n">g1</span> <span class="o">=</span> <span class="n">Gaussian2D</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">)</span>
 
@@ -858,10 +861,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 
 <span class="n">im_g1</span> <span class="o">=</span> <span class="n">g1</span><span class="p">(</span><span class="n">grid</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-1">from torch_find_peaks.gaussians import Gaussian2D, WarpedGaussian2D
-from torch_grid_utils.coordinate_grid import coordinate_grid
-import matplotlib.pyplot as plt
+<div class="clipboard-copy-txt" id="cell-1">import matplotlib.pyplot as plt
 import torch
+from torch_grid_utils.coordinate_grid import coordinate_grid
+
+from torch_find_peaks.gaussians import Gaussian2D, WarpedGaussian2D
 
 g1 = Gaussian2D(1.,0., 0., 10., 5.)
 
