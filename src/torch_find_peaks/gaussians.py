@@ -1,3 +1,5 @@
+from typing import Union
+
 import einops
 import torch
 import torch.nn as nn
@@ -124,11 +126,11 @@ class Gaussian2D(nn.Module):
     """
 
     def __init__(self,
-                 amplitude: torch.tensor = torch.tensor([1.0]),
-                 center_x: torch.tensor = torch.tensor([0.0]),
-                 center_y: torch.tensor = torch.tensor([0.0]),
-                 sigma_x: torch.tensor = torch.tensor([1.0]),
-                 sigma_y: torch.tensor = torch.tensor([1.0])
+                 amplitude: Union[torch.Tensor | float] = 1.0,
+                 center_x: Union[torch.Tensor | float] = 0.0,
+                 center_y: Union[torch.Tensor | float] = 0.0,
+                 sigma_x: Union[torch.Tensor | float] = 1.0,
+                 sigma_y: Union[torch.Tensor | float] = 1.0
     ):
         super(Gaussian2D, self).__init__()
         # Ensure that the parameters are tensors
@@ -163,14 +165,15 @@ class Gaussian2D(nn.Module):
         -------
             Tensor of Gaussian values
         """
+        # Add batch dimension
+        grid_x = einops.rearrange(grid[..., 1], 'h w -> h w' + ' 1'*self.amplitude.dim())
+        grid_y = einops.rearrange(grid[..., 0], 'h w -> h w' + ' 1'*self.amplitude.dim())
+        
         amplitude = einops.rearrange(self.amplitude, '... -> 1 1 ...')
         center_x = einops.rearrange(self.center_x, '... -> 1 1 ...')
         center_y = einops.rearrange(self.center_y, '... -> 1 1 ...')
         sigma_x = einops.rearrange(self.sigma_x, '... -> 1 1 ...')
         sigma_y = einops.rearrange(self.sigma_y, '... -> 1 1 ...')
-
-        grid_x = einops.rearrange(grid[..., 1], 'h w -> h w 1')
-        grid_y = einops.rearrange(grid[..., 0], 'h w -> h w 1')
 
         gaussian = amplitude * torch.exp(
             -((grid_x - center_x) ** 2 / (2 * sigma_x ** 2) +
@@ -208,13 +211,13 @@ class Gaussian3D(nn.Module):
     """
 
     def __init__(self,
-                 amplitude: torch.tensor = torch.tensor([1.0]),
-                 center_x: torch.tensor = torch.tensor([0.0]),
-                 center_y: torch.tensor = torch.tensor([0.0]),
-                 center_z: torch.tensor = torch.tensor([0.0]),
-                 sigma_x: torch.tensor = torch.tensor([1.0]),
-                 sigma_y: torch.tensor = torch.tensor([1.0]),
-                 sigma_z: torch.tensor = torch.tensor([1.0])
+                 amplitude: torch.tensor = torch.tensor(1.0),
+                 center_x: torch.tensor = torch.tensor(0.0),
+                 center_y: torch.tensor = torch.tensor(0.0),
+                 center_z: torch.tensor = torch.tensor(0.0),
+                 sigma_x: torch.tensor = torch.tensor(1.0),
+                 sigma_y: torch.tensor = torch.tensor(1.0),
+                 sigma_z: torch.tensor = torch.tensor(1.0)
     ):
         super(Gaussian3D, self).__init__()
         # Ensure that the parameters are tensors
@@ -255,6 +258,11 @@ class Gaussian3D(nn.Module):
         -------
             Tensor of Gaussian values
         """
+         # Add batch dimension
+        grid_x = einops.rearrange(grid[..., 2], 'd h w -> d h w' + ' 1'*self.amplitude.dim())
+        grid_y = einops.rearrange(grid[..., 1], 'd h w -> d h w' + ' 1'*self.amplitude.dim())
+        grid_z = einops.rearrange(grid[..., 0], 'd h w -> d h w' + ' 1'*self.amplitude.dim())
+
         amplitude = einops.rearrange(self.amplitude, '... -> 1 1 1 ...')
         center_x = einops.rearrange(self.center_x, '... -> 1 1 1 ...')
         center_y = einops.rearrange(self.center_y, '... -> 1 1 1 ...')
@@ -263,9 +271,6 @@ class Gaussian3D(nn.Module):
         sigma_y = einops.rearrange(self.sigma_y, '... -> 1 1 1 ...')
         sigma_z = einops.rearrange(self.sigma_z, '... -> 1 1 1 ...')
 
-        grid_x = einops.rearrange(grid[..., 2], 'd h w -> d h w 1')
-        grid_y = einops.rearrange(grid[..., 1], 'd h w -> d h w 1')
-        grid_z = einops.rearrange(grid[..., 0], 'd h w -> d h w 1')
 
         gaussian = amplitude * torch.exp(
             -((grid_x - center_x) ** 2 / (2 * sigma_x ** 2) +
