@@ -1,17 +1,51 @@
-# Welcome to MkDocs
+# Torch Find Peaks Documentation
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Welcome to the documentation for the `torch-find-peaks` library.
 
-## Commands
+## Overview
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+The `torch-find-peaks` library provides utilities for detecting and refining peaks in 2D and 3D data using PyTorch. It includes methods for peak detection, Gaussian fitting, and more.
 
-## Project layout
+## Installation
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+To install the library, use:
+
+```bash
+pip install torch-find-peaks
+```
+
+## Usage
+
+Here are some of the key functionalities provided by the library:
+
+- **Peak Detection**: Detect peaks in 2D images or 3D volumes.
+- **Gaussian Fitting**: Fit 2D or 3D Gaussian functions to refine peak positions.
+
+## API Reference
+
+### `torch_find_peaks.find_peaks`
+
+::: torch_find_peaks.find_peaks
+    handler: python
+    selection:
+      members:
+        - find_peaks_2d
+        - find_peaks_3d
+
+### `torch_find_peaks.refine_peaks`
+
+::: torch_find_peaks.refine_peaks
+    handler: python
+    selection:
+      members:
+        - refine_peaks_2d
+        - refine_peaks_3d
+
+### `torch_find_peaks.gaussians`
+
+::: torch_find_peaks.gaussians
+    handler: python
+    selection:
+      members:
+        - Gaussian2D
+        - Gaussian3D

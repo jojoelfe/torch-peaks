@@ -2,9 +2,36 @@ import einops
 import torch
 import torch.nn as nn
 
+
 class WarpedGaussian2D(nn.Module):
-    def __init__(self, 
-                 amplitude: torch.tensor = torch.tensor([1.0]), 
+    """
+    A 2D warped Gaussian function.
+
+    Parameters
+    ----------
+    amplitude : torch.tensor, optional
+        Amplitude of the Gaussian. Default is torch.tensor([1.0]).
+    center_x : torch.tensor, optional
+        X-coordinate of the center. Default is torch.tensor([0.0]).
+    center_y : torch.tensor, optional
+        Y-coordinate of the center. Default is torch.tensor([0.0]).
+    sigma_x : torch.tensor, optional
+        Standard deviation along the x-axis. Default is torch.tensor([1.0]).
+    sigma_y : torch.tensor, optional
+        Standard deviation along the y-axis. Default is torch.tensor([1.0]).
+    warp : torch.tensor, optional
+        Warp factor for the Gaussian. Default is torch.tensor([1.0]).
+    warp_angle : torch.tensor, optional
+        Angle of the warp in radians. Default is torch.tensor([0.0]).
+
+    Methods
+    -------
+    forward(grid)
+        Compute the warped Gaussian values for a given 2D grid.
+    """
+
+    def __init__(self,
+                 amplitude: torch.tensor = torch.tensor([1.0]),
                  center_x: torch.tensor = torch.tensor([0.0]),
                  center_y: torch.tensor = torch.tensor([0.0]),
                  sigma_x: torch.tensor = torch.tensor([1.0]),
@@ -47,7 +74,8 @@ class WarpedGaussian2D(nn.Module):
         Args:
             grid: Tensor of shape (h,w, 2) containing 2D coordinates.
             
-        Returns:
+        Returns
+        -------
             Tensor of warped Gaussian values
         """
         amplitude = einops.rearrange(self.amplitude, '... -> 1 1 ...')
@@ -73,8 +101,30 @@ class WarpedGaussian2D(nn.Module):
 
 
 class Gaussian2D(nn.Module):
-    def __init__(self, 
-                 amplitude: torch.tensor = torch.tensor([1.0]), 
+    """
+    A 2D Gaussian function.
+
+    Parameters
+    ----------
+    amplitude : torch.tensor, optional
+        Amplitude of the Gaussian. Default is torch.tensor([1.0]).
+    center_x : torch.tensor, optional
+        X-coordinate of the center. Default is torch.tensor([0.0]).
+    center_y : torch.tensor, optional
+        Y-coordinate of the center. Default is torch.tensor([0.0]).
+    sigma_x : torch.tensor, optional
+        Standard deviation along the x-axis. Default is torch.tensor([1.0]).
+    sigma_y : torch.tensor, optional
+        Standard deviation along the y-axis. Default is torch.tensor([1.0]).
+
+    Methods
+    -------
+    forward(grid)
+        Compute the Gaussian values for a given 2D grid.
+    """
+
+    def __init__(self,
+                 amplitude: torch.tensor = torch.tensor([1.0]),
                  center_x: torch.tensor = torch.tensor([0.0]),
                  center_y: torch.tensor = torch.tensor([0.0]),
                  sigma_x: torch.tensor = torch.tensor([1.0]),
@@ -109,7 +159,8 @@ class Gaussian2D(nn.Module):
         Args:
             grid: Tensor of shape (h,w, 2) containing 2D coordinates.
             
-        Returns:
+        Returns
+        -------
             Tensor of Gaussian values
         """
         amplitude = einops.rearrange(self.amplitude, '... -> 1 1 ...')
@@ -130,8 +181,34 @@ class Gaussian2D(nn.Module):
 
 
 class Gaussian3D(nn.Module):
-    def __init__(self, 
-                 amplitude: torch.tensor = torch.tensor([1.0]), 
+    """
+    A 3D Gaussian function.
+
+    Parameters
+    ----------
+    amplitude : torch.tensor, optional
+        Amplitude of the Gaussian. Default is torch.tensor([1.0]).
+    center_x : torch.tensor, optional
+        X-coordinate of the center. Default is torch.tensor([0.0]).
+    center_y : torch.tensor, optional
+        Y-coordinate of the center. Default is torch.tensor([0.0]).
+    center_z : torch.tensor, optional
+        Z-coordinate of the center. Default is torch.tensor([0.0]).
+    sigma_x : torch.tensor, optional
+        Standard deviation along the x-axis. Default is torch.tensor([1.0]).
+    sigma_y : torch.tensor, optional
+        Standard deviation along the y-axis. Default is torch.tensor([1.0]).
+    sigma_z : torch.tensor, optional
+        Standard deviation along the z-axis. Default is torch.tensor([1.0]).
+
+    Methods
+    -------
+    forward(grid)
+        Compute the Gaussian values for a given 3D grid.
+    """
+
+    def __init__(self,
+                 amplitude: torch.tensor = torch.tensor([1.0]),
                  center_x: torch.tensor = torch.tensor([0.0]),
                  center_y: torch.tensor = torch.tensor([0.0]),
                  center_z: torch.tensor = torch.tensor([0.0]),
@@ -174,7 +251,8 @@ class Gaussian3D(nn.Module):
         Args:
             grid: Tensor of shape (d, h, w, 3) containing 3D coordinates.
             
-        Returns:
+        Returns
+        -------
             Tensor of Gaussian values
         """
         amplitude = einops.rearrange(self.amplitude, '... -> 1 1 1 ...')

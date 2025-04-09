@@ -1,14 +1,13 @@
 import torch
-from torch_grid_utils import coordinate_grid
-from torch_find_peaks.find_peaks import find_peaks_2d, find_peaks_3d
-from torch_grid_utils.fftfreq_grid import dft_center
-
 from _utils import create_test_image, create_test_volume
+
+from torch_find_peaks.find_peaks import find_peaks_2d, find_peaks_3d
+
 
 def test_peak_picking_2d():
     peaks = torch.tensor([[1, 50, 50, 5, 5], [1, 30, 30, 2, 2]], dtype=torch.float32)
     data = create_test_image(size=100, peaks=peaks, noise_level=0.05)
-    
+
     # Small distance and low threshold should pick extra peaks
     peak_detections = find_peaks_2d(data, min_distance=1, threshold_abs=0.3)
     assert peak_detections.shape[0] > 2
@@ -21,7 +20,7 @@ def test_peak_picking_2d():
 def test_peak_picking_3d():
     peaks = torch.tensor([[1, 50, 50, 50, 2, 2, 2], [1, 30, 30, 30, 2, 2, 2]], dtype=torch.float32)
     data = create_test_volume(size=100, peaks=peaks, noise_level=0.05)
-    
+
     # Small distance and low threshold should pick extra peaks
     peak_detections = find_peaks_3d(data, min_distance=1, threshold_abs=0.1)
     assert peak_detections.shape[0] > 2

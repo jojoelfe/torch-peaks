@@ -50,3 +50,9 @@ markdown_extensions:
 plugins:
   - search
   - mkdocs-jupyter
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: numpy

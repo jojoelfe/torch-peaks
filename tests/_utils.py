@@ -3,6 +3,7 @@ from torch_grid_utils import coordinate_grid
 
 from torch_find_peaks.gaussians import Gaussian2D, Gaussian3D
 
+
 def create_test_image(size:int=100, peaks: torch.tensor = torch.tensor([]), noise_level=0.1):
     """
     Create a test image with known Gaussian peaks.
@@ -17,7 +18,7 @@ def create_test_image(size:int=100, peaks: torch.tensor = torch.tensor([]), nois
     """
     # Create a blank image
     image = torch.randn((size, size)) * noise_level
-        
+
     gaussian_model = Gaussian2D(
         amplitude=peaks[:, 0],
         center_x=peaks[:, 1],
@@ -25,7 +26,7 @@ def create_test_image(size:int=100, peaks: torch.tensor = torch.tensor([]), nois
         sigma_x=peaks[:, 3],
         sigma_y=peaks[:, 4],
     )
-    
+
     grid = coordinate_grid((size,size))
 
     # Add Gaussian peaks to the image
@@ -47,7 +48,7 @@ def create_test_volume(size:int=100, peaks: torch.tensor = torch.tensor([]), noi
     """
     # Create a blank image
     image = torch.randn((size, size, size)) * noise_level
-        
+
     gaussian_model = Gaussian3D(
         amplitude=peaks[:, 0],
         center_x=peaks[:, 1],
@@ -57,7 +58,7 @@ def create_test_volume(size:int=100, peaks: torch.tensor = torch.tensor([]), noi
         sigma_y=peaks[:, 5],
         sigma_z=peaks[:, 6],
     )
-    
+
     grid = coordinate_grid((size,size,size))
 
     # Add Gaussian peaks to the image
