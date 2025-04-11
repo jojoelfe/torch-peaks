@@ -1,9 +1,9 @@
 import einops
 import torch
 import torch.nn.functional as F
-from typing import Any, Union
+from typing import Any, Union, Literal
 import numpy as np 
-import polars as pl
+import pandas as pd
 
 
 def _find_peaks_2d_torch(
@@ -41,7 +41,7 @@ def find_peaks_2d(
         min_distance: int = 1,
         threshold_abs: float = 0.0,
         exclude_border: int = 0,
-        return_as: str = "torch",
+        return_as: Literal["torch","numpy","dataframe"] = "torch",
 ) -> torch.Tensor:
     """
     Find local peaks in a 2D image.
@@ -112,7 +112,7 @@ def find_peaks_2d(
     elif return_as == "numpy":
         return found_peaks.numpy(), heights.numpy()
     elif return_as == "dataframe":
-        return pl.DataFrame(torch.cat([found_peaks, heights], dim=1), columns=["y", "x", "height"])
+        return pd.DataFrame(torch.cat([found_peaks, heights], dim=1), columns=["y", "x", "height"])
     else:
         raise ValueError(f"Invalid return_as value: {return_as}")
 
@@ -153,7 +153,7 @@ def find_peaks_3d(
         min_distance: int = 1,
         threshold_abs: float = 0.0,
         exclude_border: int = 0,
-        return_as: str = "torch",
+        return_as: Literal["torch","numpy","dataframe"] = "torch",
 ) -> torch.Tensor:
     """
     Find local peaks in a 3D volume.
@@ -220,6 +220,6 @@ def find_peaks_3d(
     elif return_as == "numpy":
         return found_peaks.numpy(), heights.numpy()
     elif return_as == "dataframe":
-        return pl.DataFrame(torch.cat([found_peaks, heights], dim=1), columns=["z", "y", "x", "height"])
+        return pd.DataFrame(torch.cat([found_peaks, heights], dim=1), columns=["z", "y", "x", "height"])
     else:
         raise ValueError(f"Invalid return_as value: {return_as}")
