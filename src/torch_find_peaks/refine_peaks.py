@@ -33,7 +33,7 @@ def _refine_peaks_2d_torch(
     # Crop regions around peaks
     boxes = subpixel_crop_2d(image, peak_data[...,1:3], boxsize).detach()
     # Prepare coordinates
-    center = dft_center((boxsize, boxsize), rfft=False, fftshifted=True)
+    center = dft_center((boxsize, boxsize), rfft=False, fftshift=True)
     grid = coordinate_grid((boxsize, boxsize), center=center, device=image.device)
 
     # Initialize model
@@ -208,7 +208,7 @@ def _refine_peaks_3d_torch(
     boxes = subpixel_crop_3d(volume, peak_data[:, 1:4], boxsize).detach()
 
     # Prepare coordinates
-    center = dft_center((boxsize, boxsize, boxsize), rfft=False, fftshifted=True)
+    center = dft_center((boxsize, boxsize, boxsize), rfft=False, fftshift=True)
     grid = coordinate_grid((boxsize, boxsize, boxsize), center=center, device=volume.device)
 
     # Initialize model

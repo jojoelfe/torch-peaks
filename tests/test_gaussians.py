@@ -11,7 +11,7 @@ def test_gaussian_2d_basic():
     center = dft_center(
         image_shape=(20, 20),
         rfft=False,
-        fftshifted=True
+        fftshift=True
     )
     grid = coordinate_grid(
         image_shape=(20, 20),
@@ -45,7 +45,7 @@ def test_gaussian_2d_batching(shape):
     center = dft_center(
         image_shape=(20, 20),
         rfft=False,
-        fftshifted=True
+        fftshift=True
     )
     grid = coordinate_grid(
         image_shape=(20, 20),
@@ -66,7 +66,7 @@ def test_gaussian_3d_basic():
     center = dft_center(
         image_shape=(10, 10, 10),
         rfft=False,
-        fftshifted=True
+        fftshift=True
     )
     grid = coordinate_grid(
         image_shape=(10, 10, 10),
@@ -102,7 +102,7 @@ def test_gaussian_3d_batching(shape):
     center = dft_center(
         image_shape=(10, 10, 10),
         rfft=False,
-        fftshifted=True
+        fftshift=True
     )
     grid = coordinate_grid(
         image_shape=(10, 10, 10),
