@@ -112,7 +112,11 @@ def find_peaks_2d(
     elif return_as == "numpy":
         return found_peaks.numpy(), heights.numpy()
     elif return_as == "dataframe":
-        return pd.DataFrame(torch.cat([found_peaks, heights], dim=1), columns=["y", "x", "height"])
+        # Use einops.pack to properly handle tensors with different dimensions
+        # First tensor has shape [N, 2], second has shape [N]
+        # We're packing them along the second dimension (dim=1)
+        packed, _ = einops.pack([found_peaks, heights], 'n *')
+        return pd.DataFrame(packed.cpu(), columns=["y", "x", "height"])
     else:
         raise ValueError(f"Invalid return_as value: {return_as}")
 
