@@ -2402,7 +2402,7 @@ Each row contains [amplitude, z, y, x, sigma_x, sigma_y, sigma_z].</p>
         <span class="n">sigma_z</span><span class="p">,</span>
     <span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">refined_peak_data</span> <span class="o">=</span> <span class="n">_refine_peaks_3d_torch</span><span class="p">(</span>
+    <span class="n">refined_peak_data</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="n">_refine_peaks_3d_torch</span><span class="p">(</span>
         <span class="n">volume</span><span class="o">=</span><span class="n">volume</span><span class="p">,</span>
         <span class="n">peak_data</span><span class="o">=</span><span class="n">initial_peak_data</span><span class="p">,</span>
         <span class="n">boxsize</span><span class="o">=</span><span class="n">boxsize</span><span class="p">,</span>
