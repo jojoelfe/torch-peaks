@@ -353,5 +353,12 @@ def refine_peaks_3d(
         return refined_peak_data.detach().cpu().numpy()
     elif return_as == "dataframe":
         return pd.DataFrame(refined_peak_data.detach().cpu().numpy(), columns=["amplitude", "z", "y", "x", "sigma_x", "sigma_y", "sigma_z"])
+    elif return_as == "diagnostic":
+        # Return the boxes and output for diagnostic purposes
+        return {
+            "refined_peaks": pd.DataFrame(refined_peak_data.detach().cpu().numpy(), columns=["amplitude", "z", "y", "x", "sigma_x", "sigma_y", "sigma_z"]),
+            "boxes": boxes,
+            "output": output
+        }
     else:
         raise ValueError(f"Invalid return_as value: {return_as}")
