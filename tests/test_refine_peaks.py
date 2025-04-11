@@ -20,7 +20,7 @@ def test_refine_peaks_2d_basic():
         learning_rate=0.05,
         tolerance=1e-8,
     )
-    print(fitted_params)
+    
     # Check that we found the correct number of peaks
     assert len(fitted_params) == len(peaks)
 

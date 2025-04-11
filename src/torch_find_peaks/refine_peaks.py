@@ -148,7 +148,7 @@ def refine_peaks_2d(
         sigma_x,
         sigma_y,
     ], dim=-1)
-    print(initial_peak_data.shape)
+
     refined_peak_data = _refine_peaks_2d_torch(
         image=image,
         peak_data=initial_peak_data,
@@ -157,7 +157,7 @@ def refine_peaks_2d(
         learning_rate=learning_rate,
         tolerance=tolerance,
     )
-    print(refined_peak_data.shape)
+
     if return_as=="torch":
         return refined_peak_data
     elif return_as=="numpy":
@@ -313,8 +313,8 @@ def refine_peaks_3d(
     if not isinstance(volume, torch.Tensor):
         volume = torch.as_tensor(volume)
     if isinstance(peak_coords, pd.DataFrame):
-        amplitude = torch.as_tensor(peak_coords["height"].to_numpy())
-        peak_coords = torch.as_tensor(peak_coords[["z", "y", "x"].to_numpy()])
+        amplitude = torch.as_tensor(peak_coords["height"].to_numpy(),device=volume.device)
+        peak_coords = torch.as_tensor(peak_coords[["z", "y", "x"]].to_numpy(),device=volume.device)
     if not isinstance(peak_coords, torch.Tensor):
         peak_coords = torch.as_tensor(peak_coords)
 
@@ -337,7 +337,7 @@ def refine_peaks_3d(
         sigma_y,
         sigma_z,
     ], dim=-1)
-    print(initial_peak_data.shape)
+
     refined_peak_data = _refine_peaks_3d_torch(
         volume=volume,
         peak_data=initial_peak_data,
@@ -346,7 +346,6 @@ def refine_peaks_3d(
         learning_rate=learning_rate,
         tolerance=tolerance,
     )
-    print(refined_peak_data.shape)
 
     if return_as == "torch":
         return refined_peak_data

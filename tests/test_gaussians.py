@@ -53,7 +53,7 @@ def test_gaussian_2d_batching(shape):
     )
 
     forward = gaus(grid)
-    print(shape)
+
     if isinstance(shape, int):
         shape = (shape,)
     assert forward.shape == shape + (20, 20)
@@ -110,7 +110,7 @@ def test_gaussian_3d_batching(shape):
     )
 
     forward = gaus(grid)
-    print(shape)
+    
     if isinstance(shape, int):
         shape = (shape,)
     assert forward.shape == shape + (10, 10, 10)

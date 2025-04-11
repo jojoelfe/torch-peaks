@@ -31,7 +31,7 @@ def test_peak_picking_3d():
     assert peak_detections.shape[0] > 2
     # Appropriate values should find exactly the two peaks
     peak_detections, heights = find_peaks_3d(data, min_distance=5, threshold_abs=0.5)
-    print(peak_detections)
+    
     assert peak_detections.shape[0] == 2
     # Assertions check coordinates in [z, y, x] order
     assert torch.allclose(peak_detections[0], torch.tensor([30, 30, 30]), atol=1.5)
