@@ -261,7 +261,7 @@ def _refine_peaks_3d_torch(
         model.sigma_z
     ], dim=-1)
 
-    return fitted_params
+    return fitted_params, boxes, output
 
 
 def refine_peaks_3d(
@@ -338,7 +338,7 @@ def refine_peaks_3d(
         sigma_z,
     ], dim=-1)
 
-    refined_peak_data = _refine_peaks_3d_torch(
+    refined_peak_data, boxes, output = _refine_peaks_3d_torch(
         volume=volume,
         peak_data=initial_peak_data,
         boxsize=boxsize,
