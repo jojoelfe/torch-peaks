@@ -27,7 +27,7 @@ def _refine_peaks_2d_torch(
     -------
     torch.Tensor
         A tensor of shape (n, 5) containing the fitted parameters for each peak.
-        Each row contains [amplitude, center_x, center_y, sigma_x, sigma_y].
+        Each row contains [amplitude, y, x, sigma_x, sigma_y].
     """
     
     # Crop regions around peaks
@@ -60,7 +60,7 @@ def _refine_peaks_2d_torch(
             break
 
         # Backpropagate and update
-        loss.backward()
+        loss.backward(retain_graph=False)  # Ensure no graph retention
         optimizer.step()
 
         # Ensure positive values for amplitude and sigma
@@ -70,11 +70,11 @@ def _refine_peaks_2d_torch(
             model.sigma_y.data.clamp_(min=0.001)
 
     # Combine the (...,1) model parameters to a (...,5) tensor
-    # and add the peak coordinates
+    # and add the peak coordinates - keeping yx order
     fitted_params = torch.stack([
         model.amplitude,
-        model.center_x + peak_data[..., 2],
-        model.center_y + peak_data[..., 1],
+        model.center_y + peak_data[..., 1],  # y coordinate first
+        model.center_x + peak_data[..., 2],  # x coordinate second
         model.sigma_x,
         model.sigma_y
     ], dim=-1)
@@ -123,7 +123,7 @@ def refine_peaks_2d(
     -------
     torch.Tensor
         A tensor of shape (n, 5) containing the fitted parameters for each peak.
-        Each row contains [amplitude, center_x, center_y, sigma_x, sigma_y].
+        Each row contains [amplitude, y, x, sigma_x, sigma_y].
     """
     if not isinstance(image, torch.Tensor):
         image = torch.as_tensor(image)
@@ -239,7 +239,7 @@ def _refine_peaks_3d_torch(
             break
 
         # Backpropagate and update
-        loss.backward()
+        loss.backward(retain_graph=False)  # Ensure no graph retention
         optimizer.step()
 
         # Ensure positive values for amplitude and sigma
@@ -250,12 +250,12 @@ def _refine_peaks_3d_torch(
             model.sigma_z.data.clamp_(min=0.001)
 
     # Combine the (...,1) model parameters to a (...,7) tensor
-    # and add the peak coordinates
+    # and add the peak coordinates in zyx order
     fitted_params = torch.stack([
         model.amplitude,
-        model.center_z + peak_data[:, 1],
-        model.center_y + peak_data[:, 2],
-        model.center_x + peak_data[:, 3],
+        model.center_z + peak_data[:, 1],  # z coordinate first
+        model.center_y + peak_data[:, 2],  # y coordinate second
+        model.center_x + peak_data[:, 3],  # x coordinate third
         model.sigma_x,
         model.sigma_y,
         model.sigma_z
@@ -308,7 +308,7 @@ def refine_peaks_3d(
     -------
     torch.Tensor
         A tensor of shape (n, 7) containing the fitted parameters for each peak.
-        Each row contains [amplitude, center_x, center_y, center_z, sigma_x, sigma_y, sigma_z].
+        Each row contains [amplitude, z, y, x, sigma_x, sigma_y, sigma_z].
     """
     if not isinstance(volume, torch.Tensor):
         volume = torch.as_tensor(volume)

@@ -36,10 +36,10 @@ def test_gaussian_2d_batching(shape):
 
     gaus = Gaussian2D(
         amplitude=torch.ones(shape),
-        center_x=torch.zeros(shape),
         center_y=torch.zeros(shape),
-        sigma_x=torch.ones(shape),
+        center_x=torch.zeros(shape),
         sigma_y=torch.ones(shape),
+        sigma_x=torch.ones(shape),
     )
 
     center = dft_center(
@@ -91,12 +91,12 @@ def test_gaussian_3d_batching(shape):
 
     gaus = Gaussian3D(
         amplitude=torch.ones(shape),
-        center_x=torch.zeros(shape),
-        center_y=torch.zeros(shape),
         center_z=torch.zeros(shape),
-        sigma_x=torch.ones(shape),
-        sigma_y=torch.ones(shape),
+        center_y=torch.zeros(shape),
+        center_x=torch.zeros(shape),
         sigma_z=torch.ones(shape),
+        sigma_y=torch.ones(shape),
+        sigma_x=torch.ones(shape),
     )
 
     center = dft_center(
