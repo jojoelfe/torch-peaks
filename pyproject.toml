@@ -35,8 +35,6 @@ classifiers = [
 ]
 # add your package dependencies here
 dependencies = [
-    "mkdocs-jupyter>=0.25.1",
-    "mkdocs-material>=9.6.11",
     "pandas>=2.2.3",
     "torch>=2.6.0",
     "torch-grid-utils>=0.0.1",
@@ -59,7 +57,7 @@ dev = [
     "mkdocs",
     "mkdocs-material",
     "mkdocs-jupyter",
-    "mkdocstrings[python]"
+    "mkdocstrings[python]",
 ]
 
 [project.urls]
